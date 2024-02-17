@@ -57,6 +57,8 @@ func chat(w http.ResponseWriter, r *http.Request) {
 
 	if err := appendNewClient(nick, conn, connectedClients); err != nil {
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
+		conn.Close()
+		return
 	}
 
 	// A user entered the room

@@ -46,6 +46,7 @@ func broadcast(sender string, message []byte, clients Clients) {
 func appendNewClient(nick string, conn *websocket.Conn, clients Clients) error {
 	mu.RLock()
 	if _, ok := clients[nick]; ok {
+		mu.RUnlock()
 		return errors.New("nickname already taken")
 	}
 	mu.RUnlock()
